@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi chanchita hermosa</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            background-image: linear-gradient(rgba(255, 192, 203, 0.6), rgba(255, 192, 203, 0.6)), 
+                  url('./wallpaper/fondo.png');
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+        }
+
+      .contenedor {
+    position: relative; 
+    background: transparent; 
+    backdrop-filter:none ;
+    -webkit-backrop-filter: none;
+    border: 3px solid #ff6f61;
+    border-radius: 30px;
+    max-width: 450px;
+    width: 90%;
+    margin: 20px auto;
+    padding: 30px;
+    display: flex; /* <--- Esto ordena hacia abajo */
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Las barras ahora se posicionan respecto al cuadro blanco */
+.barra-amor-lateral {
+    position: absolute;
+    top: 50px; 
+    width: 22px;
+    height: 250px;
+    background: rgba(255, 111, 97, 0.1);
+    border: 2px solid #0ebd3a;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: hidden;
+}
+
+.barra-amor-lateral.izq { left: -25px; } /* Se sale un poco a la izquierda */
+.barra-amor-lateral.der { right: -25px; } /* Se sale un poco a la derecha */
+
+.progreso {
+    width: 100%;
+    background: linear-gradient(to top, #07ae20, #068429);
+    height: 80%; 
+    transition: height 0.6s ease-in-out;
+}
+
+#espacio-foto {
+    width: 100%; /* Ocupa todo el ancho del cuadro */
+    max-width: 380px;
+    height: 350px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+        @keyframes cargaAmor {
+            from { height: 80%; }
+            to { height: 100%; }
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            color: #ff6f61;
+            font-size: 1.8rem;
+        }
+
+        #espacio-foto {
+            width: 100%;
+            max-height: 350px; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            margin-bottom: 20px; 
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fdfdfd;
+        }
+
+        #foto-azar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+        }
+
+        #texto-amor {
+            font-size: 1.2rem; 
+            line-height: 1.5; 
+            color: #444; 
+            padding: 0 15px; 
+            margin-bottom: 25px; 
+        }
+        button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 5px 10px rgba(255,111,97,0.3);
+        }
+
+        button:hover {
+            background-color: #e65b54;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 500px) {
+            .barra-amor-lateral { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>❤️🐷 Léeme cuando me extrañes 🐷❤️</h1>
+
+    <div class="contenedor">
+        <div class="barra-amor-lateral izq"><div class="progreso" id="barra-izq"></div></div>
+        <div class="barra-amor-lateral der"><div class="progreso" id="barra-der"></div></div>
+
+        <div id="espacio-foto">
+            <h2 id="mensaje-inicio">¿Qué tanto sabes que te amo?</h2>
+            <img id="foto-azar" src="" style="display:none;">
+        </div>
+
+        <div id="texto-amor"></div>
+
+        <button onclick="cambiarTodo()">❤️ Toca aquí, mi chanchita ❤️</button>
+    </div>
+
+    <script>
+        const frases = [
+            "Eres mi mayor bendición, mi mayor alegría, mi amor eterno. 💖",
+            "Yisela, en tus ojos veo mi hogar, y en tus abrazos mi paz. ❤️",
+            "Dos años y medio contigo, una eternidad en mi corazón. 💕",
+            "Gracias por ser mi compañera, mi amor y mi mejor amiga. ❤️",
+            "Cada beso tuyo es una promesa, cada abrazo, un refugio. 💖",
+            "Tu sonrisa ilumina incluso mis días más oscuros. 🌟",
+            "Eres mi sol, mi luna y todas mis estrellas. 🌞🌙✨",
+            "Caminar a tu lado es caminar hacia la felicidad misma. ❤️",
+            "Eres la melodía que da ritmo a mi vida, mi sinfonía de amor. 🎶",
+            "Mi vida cambió el día que te conocí. Gracias por existir. 🥰",
+            "No creo que tengas una idea de lo mucho que te he llegado a amar en estos años."
+        ];
+
+        function cambiarTodo() {
+            const numeroAzar = Math.floor(Math.random() * 20) + 1;
+            const fraseAzar = frases[Math.floor(Math.random() * frases.length)];
+            
+            const imagen = document.getElementById("foto-azar");
+            const texto = document.getElementById("texto-amor");
+            const msjInicio = document.getElementById("mensaje-inicio");
+            const barraIzq = document.getElementById("barra-izq");
+            const barraDer = document.getElementById("barra-der");
+
+            // Cambiar imagen y mostrarla
+            imagen.src = "wallpaper/" + numeroAzar + ".png";
+            imagen.style.display = "block";
+            
+            // Cambiar texto
+            texto.innerText = fraseAzar;
+            
+            // Ocultar mensaje de inicio
+            if(msjInicio) msjInicio.style.display = "none";
+
+            // Lógica de las barras
+            const nuevoPorcentaje = Math.floor(Math.random() * 21) + 80;
+            if(barraIzq) barraIzq.style.height = nuevoPorcentaje + "%";
+            if(barraDer) barraDer.style.height = nuevoPorcentaje + "%";
+        }
+    </script>
+</body>
